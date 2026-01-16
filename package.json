@@ -1,0 +1,27 @@
+{
+  "name": "forum.primcraft.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "copy:bulma": "cp node_modules/bulma/css/bulma.min.css assets/css/",
+    "build:css": "lightningcss --bundle --minify _site/assets/css/main.css -o _site/assets/css/styles.css && rm _site/assets/css/{bulma.min,custom,tag-colors,main}.css",
+    "build": "pnpm copy:bulma && bundle exec jekyll build && pnpm build:css && purgecss --css _site/assets/css/styles.css --content '_site/**/*.html' -o _site/assets/css/ && pnpm pagefind --site _site",
+    "serve": "pnpm build && bundle exec jekyll serve --skip-initial-build --watch",
+    "clean": "rm -rf _site .jekyll-cache",
+    "format": "prettier --write '**/*.html'",
+    "format:check": "prettier --check '**/*.html'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "@shopify/prettier-plugin-liquid": "^1.10.0",
+    "bulma": "^1.0.4",
+    "lightningcss-cli": "^1.30.2",
+    "pagefind": "^1.4.0",
+    "prettier": "^3.8.0",
+    "purgecss": "^7.0.2"
+  }
+}

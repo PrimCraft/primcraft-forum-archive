@@ -1,0 +1,13 @@
+{% assign thread_tags = site.data.forum_archive.tag_threads | where: 'tid', include.tid -%}
+{%- for tt in thread_tags -%}
+  {%- assign tag = site.data.forum_archive.tags | where: 'tagid', tt.tagid | first -%}
+  {%- if tag -%}
+    <span class="tag tag-{{ tag.tagid }} is-small">{{ tag.name }}</span>
+  {%- endif -%}
+{%- endfor -%}
+{%- if include.show_pinned and include.top > 0 -%}
+  <span
+    class="tag is-info is-small"
+    >置顶</span
+  >
+{%- endif %}

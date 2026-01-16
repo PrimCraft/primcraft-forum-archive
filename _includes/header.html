@@ -1,0 +1,75 @@
+<header>
+  <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+    <div class="container">
+      <div class="navbar-brand">
+        <a
+          class="navbar-item has-text-weight-bold"
+          href="{{ '/' | relative_url }}"
+        >
+          {{ site.title }}
+        </a>
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarMenu"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="navbar-menu" id="navbarMenu">
+        <div class="navbar-start">
+          <a
+            class="navbar-item"
+            href="{{ '/forums/' | relative_url }}"
+          >
+            版块
+          </a>
+        </div>
+        <div class="navbar-end">
+          <a
+            class="navbar-item"
+            href="{{ '/search/' | relative_url }}"
+          >
+            <span class="icon is-hidden-touch">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-search"
+              >
+                <path
+                    stroke="none"
+                    d="M0 0h24v24H0z"
+                    fill="none"
+                />
+                <path
+                    d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"
+                />
+                <path d="M21 21l-6 -6" />
+              </svg>
+            </span>
+            <span>搜索</span>
+          </a>
+          <a
+            class="navbar-item"
+            id="theme-toggle"
+            aria-label="切换主题"
+          >
+            <span class="icon" id="theme-icon"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

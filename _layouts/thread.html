@@ -1,0 +1,27 @@
+---
+layout: default
+---
+{% assign forum = site.data.forum_archive.forums | where: 'fid', page.fid | first %}
+{% assign forum_url = '/forum/' | append: page.fid | append: '/' %}
+{% assign forum_label = forum.name | default: '已删除版块' %}
+{% assign hero_class = 'forum-' | append: page.fid %}
+
+{% capture breadcrumb %}
+<li><a href="{{ forum_url | relative_url }}">{{ forum_label }}</a></li>
+<li class="is-active"><a href="#" aria-current="page">{{ page.subject }}</a></li>
+{% endcapture %}
+
+{% capture subtitle %}
+浏览 {{ page.views }} · 回复 {{ page.posts }}{% if page.closed %} · <span class="tag is-warning">已关闭</span>{% endif %}
+{% endcapture %}
+
+{% include hero.html class=hero_class title=page.subject subtitle=subtitle breadcrumb=breadcrumb %}
+
+<div class="container">
+  {% assign thread_posts = site.data.forum_archive.posts | where: 'tid', page.tid | sort: 'create_date' %}
+  <div class="thread-container box">
+    {% for post in thread_posts %}
+      {% include post.html post=post %}
+    {% endfor %}
+  </div>
+</div>

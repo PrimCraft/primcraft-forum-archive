@@ -1,0 +1,7 @@
+{% assign forum = site.data.forum_archive.forums | where: 'fid', include.fid | first -%}
+<a
+  href="{{ '/forum/' | append: include.fid | append: '/' | relative_url }}"
+  class="tag forum-{{ include.fid }} is-small {{ include.class }}"
+>
+  {{- forum.name | default: '已删除' -}}
+</a>

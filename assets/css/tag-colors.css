@@ -1,0 +1,28 @@
+---
+---
+{%- comment -%}
+  Generate unique colors for tags and forums based on ID.
+  Each offset by 157° ensures optimal visual distribution.
+{%- endcomment -%}
+
+{% for tag in site.data.forum_archive.tags %}
+  {%- assign hue = tag.tagid | times: 157 | modulo: 360 -%}
+  .tag-{{ tag.tagid }} {
+    background-color: hsl({{ hue }}, 50%, 50%);
+    color: white;
+  }
+  [data-theme="dark"] .tag-{{ tag.tagid }} {
+    background-color: hsl({{ hue }}, 45%, 35%);
+  }
+{% endfor %}
+
+{% for forum in site.data.forum_archive.forums %}
+  {%- assign hue = forum.fid | times: 157 | modulo: 360 -%}
+  .forum-{{ forum.fid }} {
+    background-color: hsl({{ hue }}, 50%, 50%);
+    color: white;
+  }
+  [data-theme="dark"] .forum-{{ forum.fid }} {
+    background-color: hsl({{ hue }}, 45%, 35%);
+  }
+{% endfor %}

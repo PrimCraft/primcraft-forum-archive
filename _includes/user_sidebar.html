@@ -1,0 +1,37 @@
+{% assign user = site.data.forum_archive.users | where: 'uid', include.uid | first %}
+{% assign group = site.data.forum_archive.groups | where: 'gid', user.gid | first %}
+
+<div class="box has-text-centered">
+  <figure class="image is-inline-block mb-4" style="max-width: 128px;">
+    <img
+      src="{{ '/assets/upload/avatar/000/' | append: include.uid | append: '.png' | relative_url }}"
+      onerror="this.src='{{ '/assets/img/default-avatar.svg' | relative_url }}'"
+      alt="{{ user.username }}"
+    >
+  </figure>
+  <h2 class="title is-4">{{ user.username }}</h2>
+  <p class="subtitle is-6 has-text-grey">{{ group.name | default: '会员' }}</p>
+
+  <hr>
+
+  <div class="level is-mobile">
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">主题</p>
+        <p class="title is-5">{{ user.threads }}</p>
+      </div>
+    </div>
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">回复</p>
+        <p class="title is-5">{{ user.posts }}</p>
+      </div>
+    </div>
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">积分</p>
+        <p class="title is-5">{{ user.credits }}</p>
+      </div>
+    </div>
+  </div>
+</div>

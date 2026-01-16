@@ -1,0 +1,38 @@
+---
+layout: default
+title: 版块列表
+---
+{% capture breadcrumb %}
+<li class="is-active"><a href="#" aria-current="page">版块列表</a></li>
+{% endcapture %}
+
+{% include hero.html class="hero-neutral" title="版块列表" subtitle="浏览论坛各版块" breadcrumb=breadcrumb %}
+
+<div class="container">
+  <table class="table is-fullwidth is-hoverable thread-table">
+    <thead>
+      <tr>
+        <th>版块</th>
+        <th class="has-text-centered" style="width: 100px;">主题数</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% assign forums = site.data.forum_archive.forums | sort: 'fid' %}
+      {% for forum in forums %}
+        {% assign thread_count = site.data.forum_archive.threads | where: 'fid', forum.fid | size %}
+        <tr>
+          <td>
+            <a href="{{ '/forum/' | append: forum.fid | append: '/' | relative_url }}">
+              <strong>{{ forum.name }}</strong>
+            </a>
+            {% if forum.brief and forum.brief != '' %}
+              <br>
+              <small class="has-text-grey">{{ forum.brief }}</small>
+            {% endif %}
+          </td>
+          <td class="has-text-centered">{{ thread_count }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

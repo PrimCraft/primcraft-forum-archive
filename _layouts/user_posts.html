@@ -1,0 +1,62 @@
+---
+layout: default
+---
+{% assign user = site.data.forum_archive.users | where: 'uid', page.uid | first %}
+{% assign user_url = '/user/' | append: page.uid | append: '/' %}
+{% capture breadcrumb %}
+<li><a href="{{ user_url | relative_url }}">{{ user.username }}</a></li>
+<li class="is-active"><a href="#" aria-current="page">回复</a></li>
+{% endcapture %}
+{% include hero.html class="hero-neutral" breadcrumb=breadcrumb %}
+
+<div class="container my-5">
+  <div class="columns is-multiline">
+    <div class="column is-one-quarter-desktop">
+      {% include user_sidebar.html uid=page.uid %}
+    </div>
+
+    <div class="column">
+      <div class="tabs">
+        <ul>
+          <li>
+            <a
+              href="{{ '/user/' | append: page.uid | append: '/' | relative_url }}"
+              >主题</a
+            >
+          </li>
+          <li class="is-active">
+            <a
+              href="{{ '/user-posts/' | append: page.uid | append: '/' | relative_url }}"
+              >回复</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      {% assign user_posts = site.data.forum_archive.posts | where: 'uid', page.uid | sort: 'create_date' | reverse %}
+      {% if user_posts.size > 0 %}
+        <div class="content">
+          {% for post in user_posts %}
+            {% assign thread = site.data.forum_archive.threads | where: 'tid', post.tid | first %}
+            <article class="box">
+              <p class="is-size-7 has-text-grey mb-2">
+                回复于
+                <a
+                  href="{{ '/thread/' | append: post.tid | append: '/#post-' | append: post.pid | relative_url }}"
+                >
+                  {{ thread.subject | default: '已删除主题' }}
+                </a>
+                · {{ post.create_date | date: '%Y-%m-%d %H:%M' }}
+              </p>
+              <div class="post-content is-size-7">
+                {{ post.message_fmt | truncatewords: 50 }}
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="notification">该用户暂未发布回复</div>
+      {% endif %}
+    </div>
+  </div>
+</div>

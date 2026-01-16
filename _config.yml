@@ -1,0 +1,65 @@
+title: PrimCraft论坛
+description: PrimCraft玩家交流论坛 - 只读存档
+url: https://primcraft.com
+baseurl: /forum-archive
+lang: zh-CN
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+# Plugins
+plugins:
+  - jekyll-datapage-generator
+  - jekyll-sitemap
+
+# Data page generator configuration
+page_gen-dirs: true
+
+page_gen:
+  # Generate forum pages: /forum/{fid}/
+  - data: 'forum_archive.forums'
+    template: 'forum'
+    name: 'fid'
+    dir: 'forum'
+    title: 'name'
+
+  # Generate thread pages: /thread/{tid}/
+  - data: 'forum_archive.threads'
+    template: 'thread'
+    name: 'tid'
+    dir: 'thread'
+    title: 'subject'
+
+  # Generate user pages: /user/{uid}/
+  - data: 'forum_archive.users'
+    template: 'user'
+    name: 'uid'
+    dir: 'user'
+    title: 'username'
+
+  # Generate user posts pages: /user-posts/{uid}/
+  - data: 'forum_archive.users'
+    template: 'user_posts'
+    name: 'uid'
+    dir: 'user-posts'
+    title: 'username'
+
+# Front matter defaults for SEO
+defaults:
+  - scope:
+      path: "thread"
+    values:
+      page_type: thread
+  - scope:
+      path: "forum"
+    values:
+      page_type: forum
+  - scope:
+      path: "user"
+    values:
+      page_type: user
+  - scope:
+      path: "user-posts"
+    values:
+      page_type: user

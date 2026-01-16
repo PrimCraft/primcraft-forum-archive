@@ -1,0 +1,71 @@
+{% assign user = site.data.forum_archive.users | where: 'uid', include.post.uid | first %}
+
+<article class="media post" id="post-{{ include.post.pid }}">
+  <figure class="media-left">
+    <a
+      class="image is-48x48"
+      href="{{ '/user/' | append: include.post.uid | append: '/' | relative_url }}"
+    >
+      <img
+        class="avatar"
+        src="{{ '/assets/upload/avatar/000/' | append: include.post.uid | append: '.png' | relative_url }}"
+        onerror="this.src='{{ '/assets/img/default-avatar.svg' | relative_url }}'"
+        alt="{{ user.username | default: '未知用户' }}"
+      >
+    </a>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <a
+          href="{{ '/user/' | append: include.post.uid | append: '/' | relative_url }}"
+          ><strong>{{ user.username | default: '未知用户' }}</strong></a
+        >
+        <small class="has-text-grey">
+          · {{ include.post.create_date | date: '%Y-%m-%d %H:%M' }} · #{{ include.post.pid }}
+        </small>
+      </p>
+      <div class="post-content">{{ include.post.message_fmt }}</div>
+    </div>
+
+    {% assign post_attachments = site.data.forum_archive.attachments | where: 'pid', include.post.pid %}
+    {% if post_attachments.size > 0 %}
+      <div class="post-attachments mt-4">
+        <p class="is-size-7 has-text-grey mb-2">附件：</p>
+        <div class="fixed-grid has-3-cols has-1-cols-mobile">
+          <div class="grid">
+            {% for attach in post_attachments %}
+              {% if attach.isimage %}
+                <div class="cell">
+                  <figure class="image">
+                    <a
+                      href="{{ '/assets/upload/attach/' | append: attach.filename | relative_url }}"
+                    >
+                      <img
+                        src="{{ '/assets/upload/attach/' | append: attach.filename | relative_url }}"
+                        alt="{{ attach.orgfilename }}"
+                        loading="lazy"
+                      >
+                    </a>
+                  </figure>
+                  <p class="is-size-7 has-text-grey has-text-centered">
+                    {{ attach.orgfilename }}
+                  </p>
+                </div>
+              {% else %}
+                <div class="cell is-col-span-3">
+                  <a
+                    href="{{ '/assets/upload/attach/' | append: attach.filename | relative_url }}"
+                    class="button is-small is-light"
+                  >
+                    {{ attach.orgfilename }} ({{ attach.filesize | divided_by: 1024 }}KB)
+                  </a>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</article>

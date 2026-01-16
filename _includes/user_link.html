@@ -1,0 +1,7 @@
+{% assign user = site.data.forum_archive.users | where: 'uid', include.uid | first -%}
+<a
+  href="{{ '/user/' | append: include.uid | append: '/' | relative_url }}"
+  class="{{ include.class | default: 'has-text-grey' }}"
+>
+  {{- user.username | default: '未知用户' -}}
+</a>

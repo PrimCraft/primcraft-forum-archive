@@ -1,0 +1,64 @@
+---
+layout: default
+---
+{% assign user = site.data.forum_archive.users | where: 'uid', page.uid | first %}
+{% capture breadcrumb %}
+<li class="is-active">
+    <a href="#" aria-current="page">{{ user.username }}</a>
+</li>
+{% endcapture %}
+{% include hero.html class="hero-neutral" breadcrumb=breadcrumb %}
+
+<div class="container my-5">
+  <div class="columns is-multiline">
+    <div class="column is-one-quarter-desktop">
+      {% include user_sidebar.html uid=page.uid %}
+    </div>
+
+    <div class="column">
+      <div class="tabs">
+        <ul>
+          <li class="is-active">
+            <a
+              href="{{ '/user/' | append: page.uid | append: '/' | relative_url }}"
+              >主题</a
+            >
+          </li>
+          <li>
+            <a
+              href="{{ '/user-posts/' | append: page.uid | append: '/' | relative_url }}"
+              >回复</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      {% assign user_threads = site.data.forum_archive.threads
+        | where: 'uid', page.uid
+        | sort: 'create_date'
+        | reverse
+      %}
+      {% if user_threads.size > 0 %}
+        <div class="content">
+          {% for thread in user_threads %}
+            <article class="box">
+              <p>
+                {% include forum_badge.html fid=thread.fid %}
+                <a
+                  href="{{ '/thread/' | append: thread.tid | append: '/' | relative_url }}"
+                >
+                  <strong>{{ thread.subject }}</strong>
+                </a>
+              </p>
+              <p class="is-size-7 has-text-grey">
+                {{ thread.create_date | date: '%Y-%m-%d %H:%M' }} · 回复 {{ thread.posts }} · 浏览 {{ thread.views }}
+              </p>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="notification">该用户暂未发布主题</div>
+      {% endif %}
+    </div>
+  </div>
+</div>

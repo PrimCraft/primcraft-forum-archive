@@ -1,0 +1,20 @@
+<section class="hero{% unless include.size == 'normal' %} is-small{% endunless %} {{ include.class }}">
+  <div class="hero-body">
+    <div class="container">
+      {% if include.breadcrumb %}
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+          <ul>
+            <li><a href="{{ '/' | relative_url }}">首页</a></li>
+            {{ include.breadcrumb }}
+          </ul>
+        </nav>
+      {% endif %}
+      {% if include.title %}
+        <h1 class="title is-4">{{ include.title }}</h1>
+      {% endif %}
+      {% if include.subtitle %}
+        <p class="subtitle is-6">{{ include.subtitle }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>

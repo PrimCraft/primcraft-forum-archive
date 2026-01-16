@@ -1,0 +1,16 @@
+# Build artifacts
+_site/
+.jekyll-cache/
+.sass-cache/
+
+# Dependencies
+node_modules/
+
+# Generated CSS (copied from node_modules during build)
+assets/css/bulma.min.css
+
+# Large upload folder (synced separately)
+assets/upload/
+
+# Pagefind output (generated during build)
+pagefind/

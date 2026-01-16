@@ -1,0 +1,65 @@
+---
+layout: default
+title: 首页
+---
+{% capture subtitle %} {{ site.description }}<br />
+<span class="is-size-7 has-text-grey"
+    >此论坛于2019年停止运行，本站为只读存档。</span
+>
+{% endcapture %}
+{%
+  include hero.html class="hero-neutral" title=site.title
+  subtitle=subtitle size="normal"
+%}
+
+<div class="container">
+  {% assign sorted_threads = site.data.forum_archive.threads | sort: 'last_date' | reverse %}
+
+  <table class="table is-fullwidth is-hoverable thread-table">
+    <thead>
+      <tr>
+        <th>主题</th>
+        <th class="has-text-centered" style="width: 80px">回复</th>
+        <th class="has-text-centered" style="width: 80px">浏览</th>
+        <th style="width: 150px">最后回复</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for thread in sorted_threads %}
+        <tr>
+          <td data-label="subject">
+            <a
+              href="{{ '/thread/' | append: thread.tid | append: '/' | relative_url }}"
+            >
+              {{ thread.subject }}
+            </a>
+            <span class="tag-list">
+              {% include forum_badge.html fid=thread.fid %}
+              {%
+                include thread_tags.html tid=thread.tid top=thread.top
+                show_pinned=true
+              %}
+            </span>
+            <br>
+            <small class="has-text-grey thread-metadata">
+              {% include user_link.html uid=thread.uid %}
+              <span>{{ thread.create_date | date: '%Y-%m-%d' }}</span>
+            </small>
+          </td>
+          <td class="has-text-centered" data-label="replies">
+            {{ thread.posts }}
+          </td>
+          <td class="has-text-centered" data-label="views">
+            {{ thread.views }}
+          </td>
+          <td data-label="last-reply">
+            <small class="last-reply-content">
+              <span>{% include user_link.html uid=thread.lastuid %}</span>
+              <span class="has-text-grey">{{ thread.last_date | date: '%Y-%m-%d %H:%M' }}</span>
+            </small>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

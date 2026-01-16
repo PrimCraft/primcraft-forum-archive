@@ -1,0 +1,49 @@
+{%- comment -%}
+  Meta tags - description, canonical, Open Graph
+{%- endcomment -%}
+
+{%- assign og_title = page.title | default: site.title -%}
+{%- assign og_description = site.description -%}
+{%- assign og_type = 'website' -%}
+{%- assign og_image = null -%}
+
+{%- case page.page_type -%}
+  {%- when 'thread' -%}
+    {%- assign og_type = 'article' -%}
+
+    {%- comment -%} Get first post for description {%- endcomment -%}
+    {%- assign first_post = site.data.forum_archive.posts | where: 'pid', page.firstpid | first -%}
+    {%- if first_post -%}
+      {%- assign og_description = first_post.message | strip_html | strip_newlines | truncate: 160 -%}
+    {%- endif -%}
+
+    {%- comment -%} Get first image attachment from first post {%- endcomment -%}
+    {%- assign thread_attachments = site.data.forum_archive.attachments | where: 'tid', page.tid -%}
+    {%- assign first_post_attachments = thread_attachments | where: 'pid', page.firstpid -%}
+    {%- assign first_post_images = first_post_attachments | where: 'isimage', true -%}
+    {%- assign first_image = first_post_images | first -%}
+    {%- if first_image -%}
+      {%- assign og_image = '/assets/upload/attach/' | append: first_image.filename | absolute_url -%}
+    {%- endif -%}
+
+  {%- when 'forum' -%}
+    {%- if page.brief.size > 0 -%}
+      {%- assign og_description = page.brief -%}
+    {%- endif -%}
+
+  {%- when 'user' -%}
+    {%- assign og_type = 'profile' -%}
+    {%- assign og_description = page.username | append: '的个人主页 - ' | append: site.title -%}
+{%- endcase -%}
+
+<meta name="description" content="{{ og_description }}">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<meta property="og:title" content="{{ og_title }}">
+<meta property="og:description" content="{{ og_description }}">
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:locale" content="zh_CN">
+{%- if og_image %}
+  <meta property="og:image" content="{{ og_image }}">
+{%- endif %}

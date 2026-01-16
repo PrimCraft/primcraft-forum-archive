@@ -1,0 +1,32 @@
+---
+layout: default
+title: 搜索
+---
+{% capture breadcrumb %}
+<li class="is-active"><a href="#" aria-current="page">搜索</a></li>
+{% endcapture %}
+{% include hero.html class="hero-neutral" title="搜索" subtitle="搜索论坛存档内容" breadcrumb=breadcrumb %}
+
+<div class="container">
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+  <script src="/pagefind/pagefind-ui.js"></script>
+
+  <div id="search" class="section"></div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      new PagefindUI({
+        element: '#search',
+        showSubResults: true,
+        showImages: false,
+        translations: {
+          placeholder: '输入关键词搜索...',
+          zero_results: '未找到相关内容: [SEARCH_TERM]',
+          many_results: '找到 [COUNT] 条结果',
+          one_result: '找到 1 条结果',
+          searching: '搜索中...',
+        },
+      });
+    });
+  </script>
+</div>
