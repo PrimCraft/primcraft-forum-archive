@@ -1,6 +1,6 @@
-# forum.primcraft.com
+# PrimCraft Forum Archive
 
-Read-only archive of the PrimCraft forum (Xiuno BBS). The original forum stopped operating in 2019.
+Read-only archive of the PrimCraft forum (Xiuno BBS) at [primcraft.com/forum-archive](https://primcraft.com/forum-archive/). The original forum stopped operating in 2019.
 
 ## Tech Stack
 
