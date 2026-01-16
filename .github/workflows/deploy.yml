@@ -56,6 +56,7 @@ jobs:
         run: |
           aws s3 sync ./_site/ s3://${{ env.S3_BUCKET }}/${{ env.S3_PREFIX }}/ \
             --delete \
+            --exclude "assets/upload/*" \
             --cache-control "max-age=86400"
 
       - name: Invalidate CloudFront cache
