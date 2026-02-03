@@ -25,7 +25,8 @@
           · {{ include.post.create_date | date: '%Y-%m-%d %H:%M' }} · #{{ include.post.pid }}
         </small>
       </p>
-      <div class="post-content">{{ include.post.message_fmt }}</div>
+      {% assign baseurl_assets = 'src="' | append: site.baseurl | append: '/assets/' %}
+      <div class="post-content">{{ include.post.message_fmt | replace: 'src="/assets/', baseurl_assets }}</div>
     </div>
 
     {% assign post_attachments = site.data.forum_archive.attachments | where: 'pid', include.post.pid %}
