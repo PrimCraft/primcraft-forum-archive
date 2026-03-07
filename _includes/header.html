@@ -4,9 +4,9 @@
       <div class="navbar-brand">
         <a
           class="navbar-item has-text-weight-bold"
-          href="{{ '/' | relative_url }}"
+          href="https://primcraft.com/"
         >
-          {{ site.title }}
+          PrimCraft
         </a>
         <a
           role="button"
@@ -24,7 +24,13 @@
       <div class="navbar-menu" id="navbarMenu">
         <div class="navbar-start">
           <a
-            class="navbar-item"
+            class="navbar-item{% if page.url == '/' %} is-active{% endif %}"
+            href="{{ '/' | relative_url }}"
+          >
+            论坛存档
+          </a>
+          <a
+            class="navbar-item{% if page.url contains '/forum' %} is-active{% endif %}"
             href="{{ '/forums/' | relative_url }}"
           >
             版块
